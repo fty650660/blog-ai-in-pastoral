@@ -1,0 +1,103 @@
+backend:
+  name: github
+  repo: fty650660/blog-ai-in-pastoral
+  branch: main
+  base_url: https://blog-ai-in-pastoral.fty650660.pages.dev
+  auth_scope: public_repo
+  open_authoring: false
+
+# 登录认证配置
+auth_endpoint: https://api.netlify.com/auth/v1/token
+identity_url: https://api.netlify.com/api/v1/auth
+
+# 媒体文件配置
+media_folder: "assets/images/posts"
+public_folder: "/assets/images/posts"
+
+# 内容类型定义
+collections:
+  - name: "posts"
+    label: "📝 博客文章"
+    label_singular: "文章"
+    folder: "_posts"
+    create: true
+    slug: "{{slug}}"
+    delete: true
+    editor:
+      preview: false
+    
+    # 字段定义
+    fields:
+      - { label: "标题", name: "title", widget: "string", required: true }
+      - { 
+          label: "发布日期", 
+          name: "date", 
+          widget: "datetime", 
+          format: "YYYY-MM-DD",
+          dateFormat: "YYYY-MM-DD",
+          timeFormat: false,
+          required: true 
+        }
+      - { 
+          label: "分类", 
+          name: "category", 
+          widget: "select", 
+          options: 
+            - "AI 思考"
+            - "技术探索"
+            - "AI 伦理"
+            - "创意 AI"
+            - "技术趋势"
+            - "生活随笔",
+          required: true 
+        }
+      - { 
+          label: "标签", 
+          name: "tags", 
+          widget: "list", 
+          default: ["AI"],
+          required: false 
+        }
+      - { 
+          label: "封面图片 URL", 
+          name: "cover", 
+          widget: "image", 
+          required: false,
+          hint: "可选，不填会使用默认封面"
+        }
+      - { 
+          label: "摘要", 
+          name: "excerpt", 
+          widget: "text", 
+          required: false,
+          hint: "简短描述，用于列表页展示"
+        }
+      - { 
+          label: "正文内容", 
+          name: "body", 
+          widget: "markdown", 
+          required: true,
+          hint: "支持 Markdown 格式，可使用 emoji 🎨"
+        }
+
+  - name: "pages"
+    label: "📄 静态页面"
+    label_singular: "页面"
+    folder: "_pages"
+    create: true
+    slug: "{{slug}}"
+    delete: false
+    editor:
+      preview: false
+    
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "页面类型", name: "layout", widget: "hidden", default: "page" }
+      - { label: "正文内容", name: "body", widget: "markdown" }
+
+# 编辑器配置
+editor:
+  preview: false
+
+# 启用本地预览（开发时使用）
+local_backend: false
