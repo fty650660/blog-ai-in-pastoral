@@ -3,18 +3,37 @@ backend:
   repo: fty650660/blog-ai-in-pastoral
   branch: main
 
-media_folder: "assets/images/posts"
-public_folder: "/assets/images/posts"
+media_folder: assets/images/posts
+public_folder: /assets/images/posts
 
 collections:
-  - name: "posts"
-    label: "📝 博客文章"
-    folder: "_posts"
+  - name: posts
+    label: Blog Posts
+    folder: _posts
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "标题", name: "title", widget: "string"}
-      - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "分类", name: "category", widget: "select", options: ["AI 思考", "技术探索", "AI 伦理", "创意 AI", "技术趋势", "生活随笔"]}
-      - {label: "标签", name: "tags", widget: "list", default: ["AI"]}
-      - {label: "正文内容", name: "body", widget: "markdown"}
+      - label: Title
+        name: title
+        widget: string
+      - label: Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - AI Thinking
+          - Tech Exploration
+          - AI Ethics
+          - Creative AI
+          - Tech Trends
+          - Life Notes
+      - label: Tags
+        name: tags
+        widget: list
+        default: ["AI"]
+      - label: Body
+        name: body
+        widget: markdown
