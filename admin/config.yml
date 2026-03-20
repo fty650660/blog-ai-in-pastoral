@@ -2,7 +2,8 @@ backend:
   name: github
   repo: fty650660/blog-ai-in-pastoral
   branch: main
-  auth_scope: public_repo
+  auth_scope: repo
+  open_authoring: false
 
 # 媒体文件配置
 media_folder: "assets/images/posts"
@@ -20,7 +21,6 @@ collections:
     editor:
       preview: false
     
-    # 字段定义
     fields:
       - label: "标题"
         name: "title"
@@ -31,8 +31,8 @@ collections:
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
-        dateFormat: "YYYY-MM-DD"
-        timeFormat: false
+        date_format: "YYYY-MM-DD"
+        time_format: false
         required: true
       
       - label: "分类"
@@ -95,9 +95,7 @@ collections:
         name: "body"
         widget: "markdown"
 
-# 编辑器配置
 editor:
   preview: false
 
-# 启用本地预览（开发时使用）
 local_backend: false
