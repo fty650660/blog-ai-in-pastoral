@@ -1,19 +1,16 @@
-# Netlify 配置文件
-# 用于启用 Decap CMS 认证
-
 [build]
   publish = "."
-  command = "echo 'No build needed, using static files'"
+  command = "echo 'No build needed'"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Cache-Control = "no-cache"
 
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
-
-[[headers]]
-  for = "/admin/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+  force = true
