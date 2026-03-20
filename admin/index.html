@@ -4,13 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>博客管理后台 - 田园中的 AI</title>
-  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.10.1/dist/decap-cms.js"></script>
-  <style>
-    body { margin: 0; }
-    #root { min-height: 100vh; }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.10.1/dist/decap-cms.js" defer></script>
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    // 等待 CMS 库加载完成
+    window.addEventListener('DOMContentLoaded', function() {
+      if (typeof CMS !== 'undefined') {
+        console.log('✅ Decap CMS loaded, initializing...');
+        CMS.init();
+      } else {
+        console.error('❌ Decap CMS not loaded!');
+        document.body.innerHTML = '<div style="padding:40px;font-family:sans-serif;"><h2>❌ 加载失败</h2><p>Decap CMS 库未能加载，请检查网络连接或刷新页面重试。</p><button onclick="location.reload()" style="padding:10px 20px;cursor:pointer;">🔄 重试</button></div>';
+      }
+    });
+  </script>
 </body>
 </html>
