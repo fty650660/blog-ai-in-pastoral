@@ -5,6 +5,11 @@ backend:
   auth_scope: repo
   open_authoring: false
 
+# Netlify Identity 配置
+identity:
+  url: https://blog-ai-in-pastoral.netlify.app/.netlify/identity
+  getIdentityToken: true
+
 # 媒体文件配置
 media_folder: "assets/images/posts"
 public_folder: "/assets/images/posts"
