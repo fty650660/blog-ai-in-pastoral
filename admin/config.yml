@@ -12,6 +12,8 @@ collections:
     folder: _posts
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: false
     fields:
       - label: Title
         name: title
