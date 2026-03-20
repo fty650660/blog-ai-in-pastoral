@@ -3,6 +3,8 @@ backend:
   repo: fty650660/blog-ai-in-pastoral
   branch: main
 
+site_url: https://blog-ai-in-pastoral.netlify.app
+
 media_folder: assets/images/posts
 public_folder: /assets/images/posts
 
