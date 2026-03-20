@@ -22,57 +22,54 @@ collections:
     
     # 字段定义
     fields:
-      - { label: "标题", name: "title", widget: "string", required: true }
-      - { 
-          label: "发布日期", 
-          name: "date", 
-          widget: "datetime", 
-          format: "YYYY-MM-DD",
-          dateFormat: "YYYY-MM-DD",
-          timeFormat: false,
-          required: true 
-        }
-      - { 
-          label: "分类", 
-          name: "category", 
-          widget: "select", 
-          options: 
-            - "AI 思考"
-            - "技术探索"
-            - "AI 伦理"
-            - "创意 AI"
-            - "技术趋势"
-            - "生活随笔",
-          required: true 
-        }
-      - { 
-          label: "标签", 
-          name: "tags", 
-          widget: "list", 
-          default: ["AI"],
-          required: false 
-        }
-      - { 
-          label: "封面图片 URL", 
-          name: "cover", 
-          widget: "image", 
-          required: false,
-          hint: "可选，不填会使用默认封面"
-        }
-      - { 
-          label: "摘要", 
-          name: "excerpt", 
-          widget: "text", 
-          required: false,
-          hint: "简短描述，用于列表页展示"
-        }
-      - { 
-          label: "正文内容", 
-          name: "body", 
-          widget: "markdown", 
-          required: true,
-          hint: "支持 Markdown 格式，可使用 emoji 🎨"
-        }
+      - label: "标题"
+        name: "title"
+        widget: "string"
+        required: true
+      
+      - label: "发布日期"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        dateFormat: "YYYY-MM-DD"
+        timeFormat: false
+        required: true
+      
+      - label: "分类"
+        name: "category"
+        widget: "select"
+        options:
+          - "AI 思考"
+          - "技术探索"
+          - "AI 伦理"
+          - "创意 AI"
+          - "技术趋势"
+          - "生活随笔"
+        required: true
+      
+      - label: "标签"
+        name: "tags"
+        widget: "list"
+        default: ["AI"]
+        required: false
+      
+      - label: "封面图片 URL"
+        name: "cover"
+        widget: "image"
+        required: false
+        hint: "可选，不填会使用默认封面"
+      
+      - label: "摘要"
+        name: "excerpt"
+        widget: "text"
+        required: false
+        hint: "简短描述，用于列表页展示"
+      
+      - label: "正文内容"
+        name: "body"
+        widget: "markdown"
+        required: true
+        hint: "支持 Markdown 格式，可使用 emoji 🎨"
 
   - name: "pages"
     label: "📄 静态页面"
@@ -85,9 +82,18 @@ collections:
       preview: false
     
     fields:
-      - { label: "标题", name: "title", widget: "string" }
-      - { label: "页面类型", name: "layout", widget: "hidden", default: "page" }
-      - { label: "正文内容", name: "body", widget: "markdown" }
+      - label: "标题"
+        name: "title"
+        widget: "string"
+      
+      - label: "页面类型"
+        name: "layout"
+        widget: "hidden"
+        default: "page"
+      
+      - label: "正文内容"
+        name: "body"
+        widget: "markdown"
 
 # 编辑器配置
 editor:
