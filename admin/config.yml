@@ -6,6 +6,9 @@ backend:
 media_folder: assets/images/posts
 public_folder: /assets/images/posts
 
+media_library:
+  name: decap-media-library
+
 collections:
   - name: posts
     label: Blog Posts

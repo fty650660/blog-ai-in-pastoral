@@ -3,14 +3,12 @@
   command = "echo 'No build needed'"
 
 [[headers]]
+  for = "/admin/config.yml"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Cache-Control = "no-cache"
+
+[[headers]]
   for = "/admin/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    Cache-Control = "no-cache"
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
-  force = true
