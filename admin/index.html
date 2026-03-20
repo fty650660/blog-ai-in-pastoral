@@ -23,23 +23,114 @@
       color: #2C2C2C;
       font-size: 18px;
     }
+    .error-message {
+      padding: 20px;
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .error-message h2 {
+      color: #e74c3c;
+      margin-top: 0;
+    }
+    .error-message pre {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 12px;
+    }
+    .retry-button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+    .retry-button:hover {
+      background: #2980b9;
+    }
   </style>
 </head>
 <body>
   <div class="loading" id="loading">
     <div class="loading-text">🌾 加载管理后台中...</div>
   </div>
+  
   <script>
+    console.log('Starting Decap CMS initialization...');
+    console.log('Config URL:', '/admin/config.yml');
+    
+    // 加载配置检查
+    fetch('/admin/config.yml')
+      .then(r => {
+        console.log('Config response status:', r.status);
+        if (!r.ok) throw new Error('Config loaded failed: ' + r.status);
+        return r.text();
+      })
+      .then(configText => {
+        console.log('Config loaded successfully');
+        console.log('Config preview:', configText.substring(0, 300));
+      })
+      .catch(err => {
+        console.error('Config load error:', err);
+      });
+    
+    // 检查 Netlify Identity
+    fetch('/.netlify/identity/settings')
+      .then(r => r.json())
+      .then(settings => {
+        console.log('Netlify Identity settings:', settings);
+      })
+      .catch(err => {
+        console.error('Identity settings error:', err);
+      });
+    
     // 初始化 Decap CMS
-    CMS.init({
+    const initPromise = CMS.init({
       config_url: '/admin/config.yml'
-    }).then(() => {
-      document.getElementById('loading').style.display = 'none';
-    }).catch(err => {
-      console.error('CMS 初始化失败:', err);
-      document.getElementById('loading').innerHTML = 
-        '<div class="loading-text">❌ 加载失败，请刷新重试</div>';
     });
+    
+    // 设置超时
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('CMS initialization timeout after 30 seconds')), 30000);
+    });
+    
+    Promise.race([initPromise, timeoutPromise])
+      .then(() => {
+        console.log('✅ CMS initialized successfully');
+        document.getElementById('loading').style.display = 'none';
+      })
+      .catch(err => {
+        console.error('❌ CMS initialization failed:', err);
+        document.getElementById('loading').innerHTML = `
+          <div class="error-message">
+            <h2>❌ 加载失败</h2>
+            <p><strong>错误信息：</strong>${err.message}</p>
+            <p><strong>可能原因：</strong></p>
+            <ul>
+              <li>Netlify Identity 未正确配置</li>
+              <li>GitHub OAuth 未启用或配置错误</li>
+              <li>浏览器缓存了旧版本</li>
+              <li>网络连接问题</li>
+            </ul>
+            <p><strong>解决步骤：</strong></p>
+            <ol>
+              <li>检查 Netlify Identity 是否已启用</li>
+              <li>检查 GitHub Provider 是否已安装并配置</li>
+              <li>确认 GitHub OAuth 的回调 URL 正确</li>
+              <li>尝试硬刷新（Ctrl+Shift+R 或 Cmd+Shift+R）</li>
+              <li>清除浏览器缓存后重试</li>
+            </ol>
+            <button class="retry-button" onclick="location.reload()">🔄 重试</button>
+          </div>
+        `;
+      });
   </script>
 </body>
 </html>
